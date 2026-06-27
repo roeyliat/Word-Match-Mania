@@ -44,6 +44,8 @@ export interface GameRoom {
   therapist_score: number;
   student_score: number;
   status: 'waiting' | 'playing' | 'finished';
+  mode?: 'duo' | 'multi';
+  round_started_at?: string | null;
 }
 
 export interface CategoryGroup {

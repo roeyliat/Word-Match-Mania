@@ -8,6 +8,9 @@ import CreateRoom from "./pages/CreateRoom";
 import JoinRoom from "./pages/JoinRoom";
 import GameBoard from "./pages/GameBoard";
 import LocalGame from "./pages/LocalGame";
+import HostGame from "./pages/HostGame";
+import PlayGame from "./pages/PlayGame";
+import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +27,9 @@ const App = () => (
           <Route path="/join" element={<JoinRoom />} />
           <Route path="/game/:roomId" element={<GameBoard />} />
           <Route path="/local" element={<LocalGame />} />
+          <Route path="/host" element={<HostGame />} />
+          <Route path="/play" element={<PlayGame />} />
+          <Route path="/leaderboard/:roomId" element={<Leaderboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

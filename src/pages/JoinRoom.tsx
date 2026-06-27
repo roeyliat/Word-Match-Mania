@@ -25,6 +25,7 @@ const JoinRoom = () => {
       .from('game_rooms')
       .select('*')
       .eq('pin', pin)
+      .eq('mode', 'duo')
       .eq('status', 'waiting')
       .maybeSingle();
 
