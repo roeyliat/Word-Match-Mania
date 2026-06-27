@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&family=Rubik:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 38 40% 97%;
+    --foreground: 230 25% 15%;
+
+    --card: 40 50% 99%;
+    --card-foreground: 230 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 15%;
+
+    --primary: 265 70% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 80% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 35 25% 91%;
+    --muted-foreground: 230 10% 45%;
+
+    --accent: 170 55% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 20% 85%;
+    --input: 30 20% 87%;
+    --ring: 265 70% 58%;
+
+    --radius: 1rem;
+
+    --game-red: 0 78% 55%;
+    --game-blue: 215 82% 50%;
+    --game-green: 155 65% 42%;
+    --game-yellow: 42 90% 55%;
+
+    --quadrant-red: 0 75% 58%;
+    --quadrant-blue: 220 78% 55%;
+    --quadrant-green: 155 60% 45%;
+    --quadrant-yellow: 42 88% 58%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 230 25% 10%;
+    --foreground: 45 20% 95%;
+
+    --card: 230 20% 16%;
+    --card-foreground: 45 20% 95%;
+
+    --popover: 230 20% 14%;
+    --popover-foreground: 45 20% 95%;
+
+    --primary: 265 70% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 70% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 230 15% 20%;
+    --muted-foreground: 230 10% 60%;
+
+    --accent: 170 55% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 230 15% 22%;
+    --input: 230 15% 22%;
+    --ring: 265 70% 65%;
+
+    --game-red: 0 78% 58%;
+    --game-blue: 215 82% 55%;
+    --game-green: 155 65% 48%;
+    --game-yellow: 42 88% 58%;
+
+    --quadrant-red: 0 75% 52%;
+    --quadrant-blue: 220 78% 50%;
+    --quadrant-green: 155 60% 40%;
+    --quadrant-yellow: 42 85% 52%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    direction: rtl;
+  }
+
+  body {
+    @apply bg-background text-foreground font-varela;
+  }
+}
+
+@layer utilities {
+  .squircle {
+    border-radius: 22% 22% 22% 22% / 22% 22% 22% 22%;
+  }
+
+  .game-bg {
+    background-color: #FAF8F5;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c4b5a0' fill-opacity='0.1'%3E%3Crect x='11' y='5' width='2' height='14' rx='1'/%3E%3Crect x='5' y='11' width='14' height='2' rx='1'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .btn-press {
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+    transition: all 0.08s ease;
+  }
+  .btn-press:active {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(4px);
+  }
+
+  .card-shadow {
+    box-shadow: 0 10px 40px -8px rgba(0, 0, 0, 0.18), 0 4px 12px -2px rgba(0,0,0,0.08);
+  }
+}
