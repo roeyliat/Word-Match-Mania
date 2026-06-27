@@ -43,10 +43,16 @@ const GameBoard = () => {
       .channel(`game-${roomId}`)
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'game_rooms', filter: `id=eq.${roomId}` }, (payload) => {
         const d = payload.new;
-        setRoom({
-          ...d, settings: d.settings as unknown as GameSettings, deck_state: d.deck_state as unknown as GameCard[],
-          current_flipped_card: d.current_flipped_card as unknown as GameCard | null, status: d.status as 'waiting' | 'playing' | 'finished',
-        } as GameRoom);
+        // Realtime payloads omit large unchanged JSONB columns (Postgres TOAST),
+        // so merge onto the previous room and keep prior values when absent.
+        setRoom(prev => ({
+          ...(prev ?? {}),
+          ...d,
+          settings: (d.settings ?? prev?.settings) as unknown as GameSettings,
+          deck_state: (d.deck_state ?? prev?.deck_state) as unknown as GameCard[],
+          current_flipped_card: d.current_flipped_card as unknown as GameCard | null,
+          status: d.status as 'waiting' | 'playing' | 'finished',
+        } as GameRoom));
         if (d.current_flipped_card) setIsFlipped(true); else { setIsFlipped(false); setShowHint(false); }
       }).subscribe();
     return () => { channel.unsubscribe(); };
