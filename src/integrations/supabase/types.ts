@@ -21,7 +21,9 @@ export type Database = {
           current_flipped_card: Json | null
           deck_state: Json
           id: string
+          mode: string
           pin: string
+          round_started_at: string | null
           settings: Json
           status: string
           student_name: string | null
@@ -35,7 +37,9 @@ export type Database = {
           current_flipped_card?: Json | null
           deck_state?: Json
           id?: string
+          mode?: string
           pin: string
+          round_started_at?: string | null
           settings?: Json
           status?: string
           student_name?: string | null
@@ -49,7 +53,9 @@ export type Database = {
           current_flipped_card?: Json | null
           deck_state?: Json
           id?: string
+          mode?: string
           pin?: string
+          round_started_at?: string | null
           settings?: Json
           status?: string
           student_name?: string | null
@@ -58,6 +64,47 @@ export type Database = {
           therapist_score?: number
         }
         Relationships: []
+      }
+      players: {
+        Row: {
+          answers_count: number
+          created_at: string
+          id: string
+          last_answered_index: number
+          name: string
+          room_id: string
+          score: number
+          total_time_ms: number
+        }
+        Insert: {
+          answers_count?: number
+          created_at?: string
+          id?: string
+          last_answered_index?: number
+          name: string
+          room_id: string
+          score?: number
+          total_time_ms?: number
+        }
+        Update: {
+          answers_count?: number
+          created_at?: string
+          id?: string
+          last_answered_index?: number
+          name?: string
+          room_id?: string
+          score?: number
+          total_time_ms?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "players_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "game_rooms"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

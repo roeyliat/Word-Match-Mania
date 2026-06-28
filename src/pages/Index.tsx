@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Layers, Users, Monitor } from 'lucide-react';
+import { Layers, Users, Monitor, Crown, Smartphone } from 'lucide-react';
 import CopyrightFooter from '@/components/CopyrightFooter';
 
 const Index = () => {
@@ -29,7 +29,7 @@ const Index = () => {
             מילים, צבעים<br />וקטגוריות
           </h1>
           <p className="text-muted-foreground text-lg font-medium">
-            משחק קלפים מהיר לשניים 🎲
+            משחק קלפים מהיר — לשניים או לכיתה שלמה 🎲
           </p>
         </div>
 
@@ -65,6 +65,34 @@ const Index = () => {
             >
               <Monitor className="w-5 h-5" />
               משחק מקומי (מכשיר אחד)
+            </Button>
+          </motion.div>
+
+          <div className="flex items-center gap-3 pt-2">
+            <div className="flex-1 h-px bg-border" />
+            <span className="text-sm font-bold text-muted-foreground">רב-משתתפים</span>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+            <Button
+              onClick={() => navigate('/host')}
+              className="w-full h-14 text-lg font-bold rounded-2xl gap-3 btn-press bg-game-yellow text-white hover:bg-game-yellow/90"
+              size="lg"
+            >
+              <Crown className="w-5 h-5" />
+              נהל משחק כיתתי
+            </Button>
+          </motion.div>
+
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+            <Button
+              onClick={() => navigate('/play')}
+              className="w-full h-14 text-lg font-bold rounded-2xl gap-3 btn-press bg-game-green text-white hover:bg-game-green/90"
+              size="lg"
+            >
+              <Smartphone className="w-5 h-5" />
+              הצטרף למשחק כיתתי
             </Button>
           </motion.div>
         </div>
