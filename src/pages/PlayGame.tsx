@@ -26,11 +26,13 @@ const PlayGame = () => {
   const [roomId, setRoomId] = useState<string | null>(null);
   const [playerId, setPlayerId] = useState<string | null>(null);
   const [lastPoints, setLastPoints] = useState<number | null>(null);
+  const [typed, setTyped] = useState('');
   const [now, setNow] = useState(Date.now());
 
   const room = useGameRoom(roomId ?? undefined);
   const players = usePlayers(roomId ?? undefined);
   const me = players.find(p => p.id === playerId) ?? null;
+  const playMode = room?.settings?.playMode ?? 'oral';
 
   // Resume an in-progress session after a reload.
   useEffect(() => {
@@ -90,6 +92,8 @@ const PlayGame = () => {
   const answer = async () => {
     if (!room || !me || !room.round_started_at) return;
     if (me.last_answered_index === room.current_card_index) return;
+    if (playMode === 'typing' && !typed.trim()) return;
+    setTyped('');
     const reaction = Math.max(0, Date.now() - new Date(room.round_started_at).getTime());
     const points = computePoints(reaction);
     setLastPoints(points);
@@ -189,6 +193,23 @@ const PlayGame = () => {
         )}
 
         {canAnswer ? (
+          playMode === 'typing' ? (
+            <div className="flex flex-col items-center gap-3 w-full max-w-sm">
+              <div className="text-lg font-bold text-muted-foreground tabular-nums">⏱ {(elapsed / 1000).toFixed(1)}s</div>
+              <Input
+                value={typed}
+                onChange={e => setTyped(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && answer()}
+                placeholder={`הקלד מילה מקטגוריית ${card?.sideA.category ?? ''}...`}
+                autoFocus
+                className="h-14 text-lg font-bold rounded-2xl text-center card-shadow border-2"
+              />
+              <Button onClick={answer} disabled={!typed.trim()}
+                className="w-full h-14 text-lg font-bold rounded-2xl gap-2 btn-press">
+                <Check className="w-5 h-5" /> שלח
+              </Button>
+            </div>
+          ) : (
           <div className="flex flex-col items-center gap-3">
             <div className="text-lg font-bold text-muted-foreground tabular-nums">⏱ {(elapsed / 1000).toFixed(1)}s</div>
             <motion.button
@@ -201,6 +222,7 @@ const PlayGame = () => {
             </motion.button>
             <p className="text-sm text-muted-foreground">תגיד מילה — ולחץ מהר ככל האפשר</p>
           </div>
+          )
         ) : (
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center space-y-3">
             <div className="w-24 h-24 rounded-full bg-accent/20 flex items-center justify-center mx-auto">

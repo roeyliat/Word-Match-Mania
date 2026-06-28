@@ -10,7 +10,7 @@ import { CategoryCard, LettersGrid } from '@/components/game/GameCard';
 import { supabase } from '@/integrations/supabase/client';
 import { generatePin } from '@/lib/gameUtils';
 import { generateDeck } from '@/lib/deckGenerator';
-import { ALL_CATEGORIES, GameSettings } from '@/lib/gameTypes';
+import { ALL_CATEGORIES, GameSettings, PlayMode } from '@/lib/gameTypes';
 import { useGameRoom } from '@/hooks/useGameRoom';
 import { usePlayers } from '@/hooks/usePlayers';
 import { sortPlayers } from '@/lib/multiplayer';
@@ -21,6 +21,7 @@ const HostGame = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([...ALL_CATEGORIES]);
+  const [playMode, setPlayMode] = useState<PlayMode>('oral');
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState<string | null>(null);
   const [roomId, setRoomId] = useState<string | null>(null);
@@ -44,7 +45,7 @@ const HostGame = () => {
       excludedLetters: [],
       studentCanFlip: false,
       timerSeconds: null,
-      playMode: 'oral',
+      playMode,
       playerNames: [name.trim()],
     };
     const deck = generateDeck(settings);
@@ -228,6 +229,23 @@ const HostGame = () => {
             <div className="space-y-2">
               <Label className="text-base font-semibold">שם המנחה</Label>
               <Input value={name} onChange={e => setName(e.target.value)} placeholder="הכנס את שמך..." className="h-12 text-lg rounded-xl" />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-base font-semibold">איך עונים?</Label>
+              <div className="flex gap-2">
+                <motion.button whileTap={{ scale: 0.95 }} onClick={() => setPlayMode('oral')}
+                  className={`flex-1 px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
+                    playMode === 'oral' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
+                  }`}>
+                  הקשה מהירה (אומרים מילה)
+                </motion.button>
+                <motion.button whileTap={{ scale: 0.95 }} onClick={() => setPlayMode('typing')}
+                  className={`flex-1 px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
+                    playMode === 'typing' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
+                  }`}>
+                  הקלדת מילה
+                </motion.button>
+              </div>
             </div>
             <div className="space-y-3">
               <Label className="text-base font-semibold">קטגוריות</Label>
