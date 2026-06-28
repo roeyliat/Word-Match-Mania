@@ -21,7 +21,7 @@ const HostGame = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([...ALL_CATEGORIES]);
-  const [playMode, setPlayMode] = useState<PlayMode>('oral');
+  const [playMode, setPlayMode] = useState<PlayMode>('typing');
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState<string | null>(null);
   const [roomId, setRoomId] = useState<string | null>(null);
